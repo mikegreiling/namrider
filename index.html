@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>NamRider: Your Best Friend in the World</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('button[name=namride]').click(function(e){
+				e.preventDefault();
+				var select, answers, answer = [];
+				
+				if (!(answers = $('textarea[name=answers]').val())) {
+					answers = [];
+					answer = ['no options provided...'];
+				} else {
+					answers = answers.split(/\r\n|\r|\n/g);	
+				}
+				select = parseInt($('input[name=select]').val());
+				if (select > answers.length) {
+					select = answers.length;
+				}
+				while (select--) {
+					pick = Math.floor(Math.random() * answers.length);
+					answer.push(answers[pick]);
+					answers = answers.splice(pick - 1, 1);
+				}
+				
+				$('#answer div.well').html(answer.join('<br />'));
+				$('#answer').show();
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="container">
+	<h1>NamRider: Your best friend in the world!</h1>
+	<form role="form">
+		<div class="form-group">
+			<label>Name</label>
+			<input class="form-control" name="question" value="What's going down?" />
+		</div>
+		<div class="form-group">
+			<label>Options</label>
+			<textarea class="form-control" name="answers" rows="8" cols="12"></textarea>
+		</div>
+		<div class="form-group">
+			<label>Select</label>
+			<input class="form-control" name="select" type="text" value="2" />
+		</div>
+		<button name="namride" type="submit" class="btn btn-default">NamRide it!</button>
+	</form>
+	<div id="answer" style="display:none;">
+		<hr />
+		<h2>Answer</h2>
+		<div class="well">
+			foobar
+		</div>
+	</div>
+</div>
+</body>
+</html>
